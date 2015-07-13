@@ -1,31 +1,62 @@
+import path from "path";
 import webpack from "webpack";
 import WebpackDevServer from "webpack-dev-server";
-import webpackDevConfig from "../webpack-dev.config.babel.js";
 
 export default function(port){
-    let compiler = webpack(webpackDevConfig),
-        config = {
-            contentBase: `http://localhost:${port}`,
-            hot: true,
-            quiet: false,
-            noInfo: true,
-            
-            publicPath: webpackDevConfig.output.publicPath,
-            stats: {
-                assets: false,
-                colors: true,
-                version: false,
-                hash: false,
-                timings: false,
-                chunks: false,
-                chunkModules: false
-            }
+    let publicPath = `http://localhost:${port}/build/`
+    , compiler = webpack({
+        cache: true,
+        debug: true,
+        devtool: "cheap-module-source-map",
+        entry: {
+            bundle: [
+                `webpack-dev-server/client?http://localhost:${port}`,
+                "webpack/hot/only-dev-server",
+                "./src/client.js"
+            ]
         },
-        server = new WebpackDevServer(compiler, config);
-
-    server.listen(port, "localhost", function(err) {
-        if (err){
-            console.error(err);
+        module: {
+            loaders: [{
+                exclude: /node_modules/,
+                loaders: ["react-hot", "babel-loader?optional[]=runtime&stage=1"],
+                test: /\.jsx?$/
+            }, {
+                test: /\.sass$/,
+                loader: "style!css!sass?indentedSyntax"
+            }, {
+                test: /\.css$/,
+                loader: "style!css"
+            }]
+        },
+        output: {
+            filename: "[name].js",
+            path: path.join(__dirname, "/build/"),
+            publicPath: publicPath
+        },
+        plugins: [
+            new webpack.HotModuleReplacementPlugin(),
+            new webpack.NoErrorsPlugin()
+        ],
+        resolve: {
+            extensions: ["", ".js", ".jsx"]
         }
-    });
+    })
+    , config = {
+        contentBase: `http://localhost:${port}`,
+        hot: true,
+        quiet: false,
+        noInfo: true,
+        publicPath: publicPath,
+        stats: {
+            assets: false,
+            colors: true,
+            version: false,
+            hash: false,
+            timings: false,
+            chunks: false,
+            chunkModules: false
+        }
+    };
+
+    return new WebpackDevServer(compiler, config);
 };
