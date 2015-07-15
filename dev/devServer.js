@@ -59,4 +59,4 @@ export default function(port){
     };
 
     return new WebpackDevServer(compiler, config);
-};
+}

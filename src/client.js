@@ -10,9 +10,9 @@ import {fetch, config} from "./util/asyncFetchData";
 Iso.bootstrap(function (state, meta, node){
     alt.bootstrap(state);
     reactRouter.run(
-        router, 
-        reactRouter.HistoryLocation, 
-        (Root, {path, action, pathname, params, query, routes})=>{
+        router,
+        reactRouter.HistoryLocation,
+        (Root, {params, query, routes})=>{
             React.render(<Root />, node);
 
             let {promise, asyncRoute} = fetch({query, params, routes});

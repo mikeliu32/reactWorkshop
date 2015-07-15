@@ -6,20 +6,23 @@ import {fetch, config} from "../util/asyncFetchData";
 
 export default function(){
     return function*(next){
-        let innerHTML, snapshot, ingredient, asyncRoute, redirectPath, routerContext;
+        let innerHTML, snapshot, ingredient, redirectPath, routerContext;
 
         try {
             var {Root, state, redirectOpt} = yield (done)=>{
                 routerContext = reactRouter.create({
                     routes: router,
                     location: this.path,
-                    onAbort: (redirectOpt)=>{
-                        done(null, {redirectOpt});
+                    onAbort: (_redirectOpt)=>{
+                        done(null, {redirectOpt: _redirectOpt});
                     }
                 });
 
-                routerContext.run((Root, state)=>{
-                    done(null, {Root, state});
+                routerContext.run((_Root, _state)=>{
+                    done(null, {
+                        Root: _Root,
+                        state: _state
+                    });
                 });
             };
         } catch (e){
@@ -36,7 +39,7 @@ export default function(){
             }
         }
 
-        let {path, action, pathname, params, query, routes} = state;
+        let {params, query, routes} = state;
 
         if (routes.length > 0){
             let {promise, asyncRoute} = fetch({routes, params, query});
@@ -49,4 +52,4 @@ export default function(){
         }
         yield next;
     };
-};
+}

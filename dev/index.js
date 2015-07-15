@@ -7,7 +7,7 @@ let {
     DEV_PORT = 9090
 } = process.env,
     upstream = [
-        proxy(/^\/build/, `http://localhost:${DEV_PORT}`)
+        proxy(/^\/build\/?/, `http://localhost:${DEV_PORT}`)
     ],
     app = server(upstream),
     dev = devServer(DEV_PORT);

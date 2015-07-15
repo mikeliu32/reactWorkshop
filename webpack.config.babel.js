@@ -9,8 +9,14 @@ let config = {
     module: {
         loaders: [{
             exclude: /node_modules/,
-            loaders: ["babel-loader?optional[]=runtime&stage=0"],
+            loaders: ["react-hot", "babel-loader?optional[]=runtime&stage=1"],
             test: /\.jsx?$/
+        }, {
+            test: /\.sass$/,
+            loader: "style!css!sass?indentedSyntax"
+        }, {
+            test: /\.css$/,
+            loader: "style!css"
         }]
     },
     output: {

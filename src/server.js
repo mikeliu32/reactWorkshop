@@ -1,4 +1,4 @@
-import "babel/polyfill"
+import "babel/polyfill";
 
 import path from "path";
 import koa from "koa";
@@ -29,4 +29,4 @@ export default function server (upstream = [], downstream = []){
     });
 
     return app;
-};
+}
