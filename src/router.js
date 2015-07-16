@@ -7,9 +7,12 @@ import reservation from "./handler/reservation";
 import reservationCreate from "./handler/reservationCreate";
 import reservationInfo from "./handler/reservationInfo";
 import quotaModifier from "./handler/quotaModifier";
-
+import workshop from "./handler/workshop";
 export default (
     <Route path="/" handler={app}>
+        <Route path="workshop">
+            <DefaultRoute handler={workshop}/>
+        </Route>
         <Route path="restaurant">
             <Route path=":restaurantId" handler={restaurant}>
                 <Route path="reservation">
