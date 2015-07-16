@@ -1,11 +1,13 @@
 import React from "react";
-import app from "./app";
 import {Route, DefaultRoute} from "react-router";
+
+import app from "./app";
+import quotaModifier from "./quotaModifier";
 
 export default (
     <Route path="/" handler={app} >
         <Route path="restaurant">
-            <Route path=":restaurant_id" >
+            <Route path=":restaurantId" >
                 <Route path="reservation">
                     <DefaultRoute />
                     <Route path="create" >
@@ -24,8 +26,7 @@ export default (
                 </Route>
                 <Route path="quota">
                     <DefaultRoute />
-                    <Route path="step1" />
-                    <Route path="step2" />
+                    <Route path="modify/:quotaId" handler={quotaModifier} />
                 </Route>
             </Route>
         </Route>
