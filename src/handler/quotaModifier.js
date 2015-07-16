@@ -1,5 +1,4 @@
 import React from "react";
-import {Navigation, State} from "react-router";
 
 class QuotaModifier extends React.Component{
     constructor(...args){

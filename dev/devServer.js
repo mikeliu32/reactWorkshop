@@ -2,15 +2,17 @@ import path from "path";
 import webpack from "webpack";
 import WebpackDevServer from "webpack-dev-server";
 
+const {HOST = 'localhost'} = process.env;
+
 export default function(port){
-    let publicPath = `http://localhost:${port}/build/`
+    let publicPath = `http://${HOST}:${port}/build/`
     , compiler = webpack({
         cache: true,
         debug: true,
         devtool: "cheap-module-source-map",
         entry: {
             bundle: [
-                `webpack-dev-server/client?http://localhost:${port}`,
+                `webpack-dev-server/client?http://${HOST}:${port}`,
                 "webpack/hot/only-dev-server",
                 "./src/client.js"
             ]
@@ -42,7 +44,7 @@ export default function(port){
         }
     })
     , config = {
-        contentBase: `http://localhost:${port}`,
+        contentBase: `http://${HOST}:${port}`,
         hot: true,
         quiet: false,
         noInfo: true,

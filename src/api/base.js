@@ -29,7 +29,7 @@ getApi = () => {
         },
         get: ({path, query}) => {
             return new Promise((resolve, reject) => {
-                isoFetch(this.build(path, query))
+                isoFetch(api.build(path, query))
                 .then((response) => {
                     if (response.status >= 400) {
                         reject(response.json());
@@ -41,7 +41,7 @@ getApi = () => {
         },
         post: ({path, query, body}) => {
             return new Promise((resolve, reject) => {
-                isoFetch(this.build(path, query), {
+                isoFetch(api.build(path, query), {
                     method: "post",
                     body: JSON.stringify(body)
                 }).then((response) => {

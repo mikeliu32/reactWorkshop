@@ -4,10 +4,11 @@ import proxy from "./httpProxy";
 
 let {
     PORT = 9000,
-    DEV_PORT = 9090
+    DEV_PORT = 9090,
+    HOST = 'localhost'
 } = process.env,
     upstream = [
-        proxy(/^\/build\/?/, `http://localhost:${DEV_PORT}`)
+        proxy(/^\/build\/?/, `http://${HOST}:${DEV_PORT}`)
     ],
     app = server(upstream),
     dev = devServer(DEV_PORT);
@@ -16,7 +17,7 @@ app.listen(PORT, ()=>{
     console.log(`app listening on port ${PORT}`);
 });
 
-dev.listen(DEV_PORT, "localhost", (err)=>{
+dev.listen(DEV_PORT, HOST, (err)=>{
     if (err){
         console.error(err);
         throw err;

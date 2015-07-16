@@ -1,7 +1,7 @@
 import reactRouter from "react-router";
 import React from "react";
 import alt from "../alt";
-import router from "../component/router";
+import router from "../router";
 import {fetch, config} from "../util/asyncFetchData";
 
 export default function(){
