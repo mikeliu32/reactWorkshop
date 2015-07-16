@@ -7,12 +7,11 @@ import {fetch, config} from "../util/asyncFetchData";
 export default function(){
     return function*(next){
         let innerHTML, snapshot, ingredient, redirectPath, routerContext;
-
         try {
             var {Root, state, redirectOpt} = yield (done)=>{
                 routerContext = reactRouter.create({
                     routes: router,
-                    location: this.path,
+                    location: this.url,
                     onAbort: (_redirectOpt)=>{
                         done(null, {redirectOpt: _redirectOpt});
                     }
@@ -32,7 +31,7 @@ export default function(){
         if (redirectOpt){
             let {to, params, query} = redirectOpt;
             redirectPath = routerContext.makePath(to, params, query);
-            if (this.path === redirectPath){
+            if (this.url === redirectPath){
                 this.throw(400, "infinite redirect loop");
             } else {
                 return this.redirect(redirectPath);
