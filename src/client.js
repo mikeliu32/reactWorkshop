@@ -8,12 +8,12 @@ import alt from "./alt";
 import {fetch, config} from "./util/asyncFetchData";
 import configStore from "./store/configStore";
 
-const {
-    nodeEnv
-} = configStore.getState();
-
 Iso.bootstrap(function (state, meta, node){
     alt.bootstrap(state);
+
+    const {
+        nodeEnv
+    } = configStore.getState();
 
     if (nodeEnv != 'production') {
         alt.dispatcher.register(console.log.bind(console));
