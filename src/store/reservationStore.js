@@ -1,6 +1,7 @@
 import alt from "../alt";
 import makeHot from "alt/utils/makeHot";
-import reservationAction from '../action/reservationAction'
+import reservationAction from '../action/reservationAction';
+import _ from 'underscore';
 
 class ReservationStore {
     constructor(){
@@ -8,8 +9,10 @@ class ReservationStore {
 
         Object.assign(this, {
             reservations: [],
+            reservation: [],
             loading: false,
             loaded: false,
+            reservationLoaded: false,
             err: null,
         });
     }
@@ -27,6 +30,23 @@ class ReservationStore {
     }
 
     onGetReservationsFailed (err) {
+        this.loading = false;
+        this.err = err;
+    }
+
+    onGetReservation(query) {
+        this.loading = true;
+        this.reservationLoaded = false;
+        this.err = null;
+    }
+
+    onGetReservationFinished (res) {
+        this.loading = false;
+        this.reservationLoaded = true;
+        this.reservation.push(res.data);
+    }
+
+    onGetReservationFailed (err) {
         this.loading = false;
         this.err = err;
     }

@@ -1,19 +1,28 @@
 import React from "react";
-import {RouteHandler, Link} from "react-router";
+import {RouteHandler} from "react-router";
+import Colors from '../util/colors';
 
 class Restaurant extends React.Component {
+    constructor(...args) {
+        super(...args);
+        this._handleBack = this._handleBack.bind(this);
+    }
+
+    _handleBack() {
+        this.context.router.goBack() || this.context.router.transitionTo('list', this.props.params);
+    }
+
     render(){
         return (
             <div>
-                <Link to="list" params={this.props.params}>reservations</Link>
-                <br/>
-                <Link to="add" params={this.props.params}>+</Link>
-                <br/>
-                <Link to="quotaModify" params={this.props.params}>Config</Link>
-                <RouteHandler />
+                <RouteHandler onBack={this._handleBack}/>
             </div>
         );
     }
 }
+
+Restaurant.contextTypes = {
+    router: React.PropTypes.func.isRequired,
+};
 
 export default Restaurant;

@@ -23,9 +23,11 @@
     "koa-router": "^5.1.2",
     "koa-static": "^1.4.9",
     "moment": "^2.10.3",
+    "node-polyglot": "^0.4.3",
     "qs": "^4.0.0",
     "react": "^0.13.3",
     "react-router": "^0.13.3",
+    "react-tap-event-plugin": "^0.1.7",
     "underscore": "^1.8.3"
   },
   "devDependencies": {
