@@ -7,6 +7,8 @@ import router from "./router";
 import alt from "./alt";
 import {fetch, config} from "./util/asyncFetchData";
 import configStore from "./store/configStore";
+import injectTapEventPlugin from "react-tap-event-plugin";
+injectTapEventPlugin();
 
 Iso.bootstrap(function (state, meta, node){
     alt.bootstrap(state);

@@ -23,6 +23,27 @@ class ReservationAction {
     }
     //////
 
+    // get reservation action
+    getReservation(id) {
+        this.dispatch(id);
+
+        api.getReservation(id)
+            .then((res) => {
+                res.data.notes = res.data.restaurant_extra.notes || '';
+                this.actions.getReservationFinished(res);
+            }, (err) => {
+                this.actions.getReservationFailed(err);
+            });
+    }
+
+    getReservationFinished (res) {
+        this.dispatch(res);
+    }
+
+    getReservationFailed (err) {
+        this.dispatch(err);
+    }
+    //////
 }
 
 export default alt.createActions(ReservationAction)

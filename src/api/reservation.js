@@ -18,6 +18,10 @@ export default {
                 sort: 'id'
             }
         });
+    },
+    getReservation: (reservationId) => {
+        return api.get({
+            path: `/v2/manager_reservation/get_info/${reservationId}`
+        });
     }
-
 };
